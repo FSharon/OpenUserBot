@@ -127,6 +127,8 @@ async def amireallyalive(alive):
                      f"Telethon version: {version.__version__} \n"
                      f"Python: {python_version()} \n"
                      f"------------------------------------ \n"
+                     f"User: {DEFAULTUSER} \n"
+                     f"------------------------------------ \n"
                      "How long will I love you \n"
                      "As long as stars are above you \n\n"
                      "묘이 미나 ❤️ \n")
