@@ -6,7 +6,7 @@
 <p align="center">&nbsp;</p>
 <h2 align="center">How To Host</h2>
 <h5 align="center">The easiest way to deploy this derpfest! is click on the Mina image below, she is beautiful.</h5>
-<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/fr7zzy/OpenUserBot/tree/master"> <img src="https://pbs.twimg.com/media/ESIPWMAXUAAWTz6?format=jpg&name=small" alt="Deploy to Heroku" /></a></p>
+<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/fr7zzy/OpenUserBot/tree/master"> <img src="https://pbs.twimg.com/media/ESvYh2FUUAMUtdE?format=jpg&name=large" alt="Deploy to Heroku" /></a></p>
 <p align="center">&nbsp;</p>
 <h2 align="center">Credits</h2>
 <p align="center">Huge thanks to <a href="https://github.com/mkaraniya/OpenUserBot/graphs/contributors">everyone</a> who have helped make this userbot awesome!!</p>
