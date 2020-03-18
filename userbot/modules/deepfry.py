@@ -27,7 +27,7 @@ async def _(event):
     async with bot.conversation(chat) as conv:
           try:     
               response = conv.wait_event(events.NewMessage(incoming=True,from_users=432858024))
-              await bot.forward_messages(chat, reply_message)
+              await bot.send_file(chat, reply_message)
               response = await response 
           except YouBlockedUserError: 
               await event.reply("```Please unblock @image_deepfrybot and try again```")
@@ -36,7 +36,7 @@ async def _(event):
              await event.edit("```Can you kindly disable your forward privacy settings for good?```")
           else: 
              await event.delete()   
-             await bot.forward_messages(event.chat_id, response.message)
+             await bot.send_file(event.chat_id, response.message)
 
 CMD_HELP.update({
         "deepfry": 
