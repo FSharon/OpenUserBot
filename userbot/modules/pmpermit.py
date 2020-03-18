@@ -20,7 +20,8 @@ UNAPPROVED_MSG = (
     "`HeY! This is an automated message.\n\n`"
     "`I haven't approved you to PM yet.`"
     "`Please wait for me to look in, I mostly approve PMs.\n\n`"
-    "`Until then, please don't spam my Mastor's PM, you'll get blocked and reported if you do so!`")
+    "`Until then, please don't spam my Mastor's PM, you'll get blocked and reported if you do so!`"
+    "`My Guardian Angel 💝 묘이 미나 💝`")
 # =================================================================
 
 
