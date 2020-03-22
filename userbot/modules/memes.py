@@ -903,7 +903,7 @@ async def hoi(hello):
     await hello.edit(choice(HELLOSTR))
 
 
-@register(outgoing=True, pattern="^.owo(?: |$)(.*)")
+@register(outgoing=True, pattern="^.Owo(?: |$)(.*)")
 async def faces(owo):
     """ UwU """
     textx = await owo.get_reply_message()
@@ -930,6 +930,7 @@ async def faces(owo):
 async def react_meme(react):
     """ Make your userbot react to everything. """
     await react.edit(choice(FACEREACTS))
+
                       
 @register(outgoing=True, pattern="^.iwi(?: |$)(.*)")
 async def faces(siwis):
@@ -949,6 +950,26 @@ async def faces(siwis):
     reply_text = sub(r"\!+", " " + choice(IWIS), reply_text)
     reply_text += " " + choice(IWIS)
     await siwis.edit(reply_text)
+
+
+@register(outgoing=True, pattern="^.owo(?: |$)(.*)")
+async def faces(sowos):
+    """ OwO """
+    textx = await sowos.get_reply_message()
+    message = sowos.pattern_match.group(1)
+    if message:
+        pass
+    elif textx:
+        message = textx.text
+    else:
+        await sowos.edit("`OwO no text given! `")
+        return
+
+    reply_text = sub(r"(a|i|u|e|o)", "o", message)
+    reply_text = sub(r"(A|I|U|E|O)", "O", reply_text)
+    reply_text = sub(r"\!+", " " + choice(IWIS), reply_text)
+    reply_text += " " + choice(IWIS)
+    await sowos.edit(reply_text)
 
                       
 @register(outgoing=True, pattern="^.shg$")
@@ -1347,7 +1368,7 @@ CMD_HELP.update({
 \nUsage: Greet everyone!\
 \n\n.coinflip <heads/tails>\
 \nUsage: Flip a coin !!\
-\n\n.owo\
+\n\n.Owo\
 \nUsage: UwU\
 \n\n.react\
 \nUsage: Make your userbot react to everything.\
