@@ -22,5 +22,5 @@ def get_country_data(country, world):
     return {"Status": "No information yet about this country!"}
 
 CMD_HELP.update({
-    "covid": ".covid\nUsage : Give information about Corona Virus in your country"
+    "covid": ".covid <country>\nUsage : Give information about Corona Virus in your country"
 })
