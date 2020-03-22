@@ -6,7 +6,7 @@ from telethon.errors import MessageEmptyError, MessageTooLongError, MessageNotMo
 import io
 import asyncio
 import time
-from userbot import bot
+from userbot import bot, CMD_HELP
 import glob
 import os
 from userbot.events import register
@@ -51,3 +51,7 @@ async def _(event):
     os.system("rm -rf *.mp3")
     subprocess.check_output("rm -rf *.mp3",shell=True)
 
+CMD_HELP.update({
+    "song": ".song\nUsage : Send mp3"
+})
+    
