@@ -74,11 +74,9 @@ async def _(event):
 
 
 CMD_HELP.update({
-    "warns":
-    ".warn
-    \nUsage: Warn a user.\
+    "warns": ".warn \nUsage : Warn a user\
     \n\n.warns\
-    \nUsage: See all warns for a user.\
+    \nUsage: See all warns for a user\
     \n\n.resetwarns\
-    \nUsage: Reset all warns of a user."
+    \nUsage: Reset all warns of a user"
 })
