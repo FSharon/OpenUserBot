@@ -22,8 +22,8 @@ async def covid_global(request):
     }
     releases = 'Covid-19 Global data:\n'
     for OBJECTID, release_url in covid_global_dict.items():
-        data = get(release_url).json()
-        releases += f'{OBJECTID}: ["Country_region"]["Last_Update"]["Lat"]["Long"]["Confirmed"]["Deaths"]["Recovered"]["Active"]\n'
+        data = get(release_url)()
+        releases += f'{OBJECTID}: {data["Country_region"]["Last_Update"]["Lat"]["Long"]["Confirmed"]["Deaths"]["Recovered"]["Active"]}\n'
     await request.edit(releases)
 
     CMD_HELP.update({
