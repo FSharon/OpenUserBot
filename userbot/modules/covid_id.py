@@ -22,9 +22,9 @@ async def get_covidid(e):
         meninggal = result["kasus_meni"]
         
         textkirim = (f"**Provinsi :** `{provinsi}`\n" +
-                                f"**Positif :**  `{kasus_posi}`\n\n" +
-                                f"**Sembuh :** `{kasus_semb}`\n" +
-                                f"**Meninggal :** `{kasus_meni}`\n")
+                     f"**Positif :**  `{kasus_posi}`\n\n" +
+                     f"**Sembuh :** `{kasus_semb}`\n" +
+                     f"**Meninggal :** `{kasus_meni}`\n")
                                 
         await e.edit(textkirim)
     
