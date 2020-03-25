@@ -13,19 +13,19 @@ from userbot import CMD_HELP
 from userbot.events import register
 
 
-@register(outgoing=True, pattern="^.covid.global$")
-async def covid_global(request):
-    """ covid-19 global """
-    covid_global_dict = {
-        "Global":
-        "https://api.kawalcorona.com/"
+@register(outgoing=True, pattern="^.covidid(?: |$)(.*)")
+async def covid_id(request):
+    """ covid-19 indonesia """
+    covid_id_dict = {
+        "Indonesia":
+        "https://api.kawalcorona.com/indonesia/"
     }
-    releases = 'Covid-19 Global data:\n'
-    for OBJECTID, release_url in covid_global_dict.items():
+    releases = 'Data Covid-19 Indonesia:\n'
+    for name, release_url in covid_id_dict.items():
         data = get(release_url).json()
-        releases += f'{OBJECTID}: {data["Country_region"]["Last_Update"]["Lat"]["Long"]["Confirmed"]["Deaths"]["Recovered"]["Active"]}\n'
+        releases += f'{name}: {data["positif"]["sembuh"]["meninggal"]}\n'
     await request.edit(releases)
 
     CMD_HELP.update({
-    "coronavirus": ".covid.global\nUsage : Give information about Corona Virus in your country"
+    "corona": ".covidid\nUsage : Give information about Corona Virus in Indonesia"
 })
