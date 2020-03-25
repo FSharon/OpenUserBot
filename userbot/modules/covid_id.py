@@ -8,7 +8,7 @@ from userbot.events import register
 async def get_covidid(e):
     await e.edit(
     
-    url = https://api.kawalcorona.com/indonesia/provinsi.json
+    url = f'https://api.kawalcorona.com/indonesia/provinsi.json'
     request = requests.get(url)
     result = json.loads(request.text)
     
