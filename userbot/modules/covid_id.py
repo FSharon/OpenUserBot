@@ -6,7 +6,6 @@ from userbot.events import register
 
 @register(outgoing=True, pattern="^.covidid$")
 async def get_covidid(e):
-    await e.edit(
     
     url = f'https://api.kawalcorona.com/indonesia/provinsi.json'
     request = requests.get(url)
