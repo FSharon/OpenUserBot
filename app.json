@@ -144,7 +144,7 @@
     },
     "DEFAULT_BIO": {
       "description": "Default profile bio.",
-      "value": "[PM = Report Spam] I ❤ ️@OpenUserBot",
+      "value": "뮤이 미나💞",
       "required": false
     },
     "ALIVE_NAME": {
