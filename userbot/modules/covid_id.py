@@ -6,6 +6,14 @@ from userbot.events import register
 
 @register(outgoing=True, pattern="^.covidid$")
 async def get_covidid(e):
+    if not e.text.startswith("."):
+        return ""
+
+    if not e.pattern_match.group(1):
+        await e.edit("Usage: Get covid-19 data in Indonesia")
+        return
+    else:
+        e.pattern_match.group(1)
     
     url = f'https://api.kawalcorona.com/indonesia/provinsi.json'
     request = requests.get(url)
