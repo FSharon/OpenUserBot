@@ -51,7 +51,10 @@ if 1 == 1:
         """Quote a message.
         Usage: .pch [template]
         If template is missing, possible templates are fetched."""
-        await message.delete()
+        if QUOTES_API_TOKEN is None:
+            await message.edit("Provide QUOTES_API_TOKEN from http://antiddos.systems in convig.py or heroku vars first!!")
+            return
+        await message.edit("`Processing...`")
         args = message.raw_text.split(" ")[1:]
         if args == []:
             args = ["default"]
