@@ -16,7 +16,7 @@ import sys
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from userbot import CMD_HELP, bot, HEROKU_API_KEY, HEROKU_APP_NAME, UPSTREAM_REPO_URL, HEROKU_MEMEZ
+from userbot import CMD_HELP, bot, HEROKU_API_KEY, HEROKU_APP_NAME, UPSTREAM_REPO_URL
 from userbot.events import register
 
 requirements_path = path.join(
