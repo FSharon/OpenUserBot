@@ -119,19 +119,15 @@ async def pipcheck(pip):
         await pip.edit("`Use .help pip to see an example`")
 
 
-@register(outgoing=True, pattern="^.alive$")
+@register(outgoing=True, pattern=r"^\.(?:alive|on)\s?(.)?")
 async def amireallyalive(alive):
     """ For .on command, check if the bot is running.  """
-    await alive.edit("I'm alive for you \n"
-                     f"------------------------------------ \n"
-                     f"Telethon version: {version.__version__} \n"
-                     f"Python: {python_version()} \n"
-                     f"------------------------------------ \n"
-                     f"User: {DEFAULTUSER} \n"
-                     f"------------------------------------ \n"
-                     "How long will I love you \n"
-                     "As long as stars are above you \n\n"
-                     "묘이 미나 ❤️ \n")
+    await alive.edit("`My Detail Ubot `\n"
+                     f"> `Telethon : v{version.__version__} `\n"
+                     f"> `Python : v{python_version()} `\n"
+	                 "===================== \n"
+                     f"`User : `{DEFAULTUSER} \n"
+		         "===================== \n")
 
 
 @register(outgoing=True, pattern="^.aliveu")
@@ -165,7 +161,7 @@ CMD_HELP.update(
     \nUsage: Does a search of pip modules(s)."})
 CMD_HELP.update({
     "alive":
-    ".alive\
+    ".alive | .on\
     \nUsage: Type .alive to see wether your bot is working or not.\
     \n\n.aliveu <text>\
     \nUsage: Changes the 'user' in alive to the text you want.\
