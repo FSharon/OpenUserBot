@@ -155,7 +155,7 @@ async def dyno_usage(dyno):
 
 CMD_HELP.update({
     "heroku":
-    ">.`usage`"
+    "`.usage`"
     "\nUsage: Check your heroku dyno hours remaining"
     "\n\n>`.set var <NEW VAR> <VALUE>`"
     "\nUsage: add new variable or update existing value variable"
