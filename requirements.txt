@@ -36,6 +36,7 @@ pySmartDL
 python-barcode
 python-dateutil
 python-dotenv
+pytube
 pytz
 qrcode
 redis>=3.3.10
