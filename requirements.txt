@@ -41,6 +41,7 @@ redis>=3.3.10
 regex
 requests>=2.18.4
 search-engine-parser>=0.4.2
+spcli
 speedtest-cli>=2.0.2
 sqlalchemy>=1.2
 telegraph
