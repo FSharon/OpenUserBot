@@ -30,14 +30,13 @@ import errno
 
 from pySmartDL import SmartDL
 from urllib.error import HTTPError
-from os.path import exists
 
 from userbot import CMD_HELP, LOGS
 from userbot.events import register
 from userbot.modules.upload_download import humanbytes
 
 
-async def subprocess_run(cmd, megadl):
+async def subprocess_run(megadl, cmd):
     subproc = await asyncSubprocess(cmd, stdout=asyncPIPE, stderr=asyncPIPE)
     stdout, stderr = await subproc.communicate()
     exitCode = subproc.returncode
@@ -48,33 +47,7 @@ async def subprocess_run(cmd, megadl):
             f'stdout: {stdout.decode().strip()}\n'
             f'stderr: {stderr.decode().strip()}```')
         return exitCode
-    return stdout, stderr, exitCode
-
-
-async def mega_downloader_fallback(megadl, link):
-    if not exists('mega'):
-        os.mkdir('mega')
-    await megadl.edit('`Downloading...`')
-    cmd = f'megadl --path mega {link} > /dev/null'
-    result = await subprocess_run(cmd, megadl)
-    if result[2] != 0:
-        return
-    with open('list.txt', 'w+') as list_files:
-        for downloaded_files in os.listdir('mega'):
-            list_files.write(downloaded_files + '\n')
-    result = open('list.txt', 'r').read()
-    if len(result) >= 4096:
-        await megadl.client.send_file(
-            megadl.chat_id,
-            "list.txt",
-            reply_to=megadl.id,
-            caption="`List files is too many, sending it as a file`",
-         )
-    else:
-        await megadl.edit(f'**Downloaded files**:\n`{result}`')
-    result.close()
-    os.remove('list.txt')
-    return
+    return stdout.decode().strip(), stderr.decode().strip(), exitCode
 
 
 @register(outgoing=True, pattern=r"^.mega(?: |$)(.*)")
@@ -87,30 +60,24 @@ async def mega_downloader(megadl):
     elif msg_link:
         link = msg_link.text
     else:
-        await megadl.edit("Usage: `.mega <MEGA.nz link>`")
-        return
+        return await megadl.edit("Usage: `.mega <MEGA.nz link>`")
     try:
         link = re.findall(r'\bhttps?://.*mega.*\.nz\S+', link)[0]
+        """ - Mega changed their URL again - """
+        if "file" in link:
+            link = link.replace("#", "!").replace("file/", "#!")
+        elif "folder" in link or "#F" in link or "#N" in link:
+            await megadl.edit("`Currently support folder download are removed`.")
+            return
     except IndexError:
-        await megadl.edit("`No MEGA.nz link found`\n")
-        return
-    if "#F" in link:
-        await megadl.edit('`MEGA.nz link is a folder, processing fallback...`')
-        await asyncio.sleep(1)
-        await mega_downloader_fallback(megadl, link)
-        return
-    else:
-        pass
+        return await megadl.edit("`No MEGA.nz link found`\n")
     cmd = f'bin/megadown -q -m {link}'
-    result = await subprocess_run(cmd, megadl)
+    result = await subprocess_run(megadl, cmd)
     try:
-        data = json.loads(result[0].decode().strip())
+        data = json.loads(result[0])
     except json.JSONDecodeError:
-        await megadl.edit("`Error: Can't extract the link`\n")
-        return
-    except TypeError:
-        return
-    except IndexError:
+        return await megadl.edit("`Error: Can't extract the link`\n")
+    except (IndexError, TypeError):
         return
     file_name = data["file_name"]
     file_url = data["url"]
@@ -124,8 +91,7 @@ async def mega_downloader(megadl):
     try:
         downloader.start(blocking=False)
     except HTTPError as e:
-        await megadl.edit("`" + str(e) + "`")
-        return
+        return await megadl.edit("`" + str(e) + "`")
     while not downloader.isFinished():
         status = downloader.get_status().capitalize()
         total_length = downloader.filesize if downloader.filesize else None
@@ -156,29 +122,31 @@ async def mega_downloader(megadl):
     if downloader.isSuccessful():
         download_time = downloader.get_dl_time(human=True)
         try:
-            P = multiprocessing.Process(target=await decrypt_file(
-                file_name, temp_file_name, hex_key, hex_raw_key, megadl), name="Decrypt_File")
+            P = multiprocessing.Process(target=await decrypt_file(megadl,
+                                        file_name, temp_file_name,
+                                        hex_key, hex_raw_key),
+                                        name="Decrypt_File")
             P.start()
             P.join()
         except FileNotFoundError as e:
-            await megadl.edit(str(e))
-            return
+            return await megadl.edit(str(e))
         else:
-            await megadl.edit(f"`{file_name}`\n\n"
-                              "Successfully downloaded\n"
-                              f"Download took: {download_time}")
+            return await megadl.edit(f"`{file_name}`\n\n"
+                                     "Successfully downloaded\n"
+                                     f"Download took: {download_time}")
     else:
-        await megadl.edit("`Failed to download, check heroku Log for details`")
+        await megadl.edit("`Failed to download, "
+                          "check heroku Logs for more details`")
         for e in downloader.get_errors():
             LOGS.info(str(e))
     return
 
 
-async def decrypt_file(file_name, temp_file_name,
-                       hex_key, hex_raw_key, megadl):
+async def decrypt_file(megadl, file_name, temp_file_name,
+                       hex_key, hex_raw_key):
     cmd = ("cat '{}' | openssl enc -d -aes-128-ctr -K {} -iv {} > '{}'"
            .format(temp_file_name, hex_key, hex_raw_key, file_name))
-    if await subprocess_run(cmd, megadl):
+    if await subprocess_run(megadl, cmd):
         os.remove(temp_file_name)
     else:
         raise FileNotFoundError(
@@ -188,7 +156,7 @@ async def decrypt_file(file_name, temp_file_name,
 
 CMD_HELP.update({
     "mega":
-    "```.mega <MEGA.nz link>\n"
-    "Usage: Reply to a MEGA.nz link or paste your MEGA.nz link to\n"
-    "download the file into your userbot server.```"
+    ">`.mega <MEGA.nz link>`"
+    "\nUsage: Reply to a MEGA.nz link or paste your MEGA.nz link to "
+    "download the file into your userbot server."
 })
