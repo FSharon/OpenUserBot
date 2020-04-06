@@ -350,7 +350,7 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
     await gdrive.edit("`Processing upload...`")
     body = {
         "name": file_name,
-        "description": "Uploaded from Telegram using ProjectBish userbot.",
+        "description": "Uploaded by frizzy from Telegram using ProjectBish userbot.",
         "mimeType": mimeType,
     }
     try:
@@ -612,16 +612,16 @@ CMD_HELP.update({
     "gdrive":
     ".gd"
     "\nUsage: Upload file into google drive"
-    "\n\n>.gdf mkdir <folder name>"
+    "\n\n.gdf mkdir <folder name>"
     "\nUsage: Create google drive folder."
-    "\n\n>.gdf chck <folder/file|name/id>"
+    "\n\n.gdf chck <folder/file|name/id>"
     "\nUsage: Check given value is exist or not."
-    "\n\n>.gdf rm <folder/file|name/id>"
+    "\n\n.gdf rm <folder/file|name/id>"
     "\nUsage: Delete a file/folder, and can't be undone"
     "\nThis method skipping file trash, so be caution..."
-    "\n\n>.gdfset put <folderURL/folderID>"
+    "\n\n.gdfset put <folderURL/folderID>"
     "\nUsage: Change upload directory."
-    "\n\n>.gdfset rm"
+    "\n\n.gdfset rm"
     "\nUsage: Remove set parentId from\n>.gdfset put <value>"
     "to **G_DRIVE_FOLDER_ID** and if empty upload will go to root."
 })
