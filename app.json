@@ -155,7 +155,7 @@
     },
     "DEFAULT_BIO": {
       "description": "Default profile bio.",
-      "value": "뮤이 미나💞",
+      "value": "",
       "required": false
     },
     "ALIVE_NAME": {
