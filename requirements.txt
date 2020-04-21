@@ -3,10 +3,11 @@ aria2p
 async_generator
 beautifulsoup4>=4.8.1
 bs4
+cffi>=1.0.0
 coffeehouse>=2.1.0
 covid
 cowpy
-cffi>=1.0.0
+cryptg
 dnspython
 emoji
 git+https://github.com/johnwmillr/LyricsGenius.git
