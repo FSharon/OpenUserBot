@@ -21,7 +21,7 @@ UNAPPROVED_MSG = (
     "`I haven't approved you to PM yet.`"
     "`Please wait for me to look in, I mostly approve PMs.\n\n`"
     "`Until then, please don't spam my Mastor's PM, you'll get blocked and reported if you do so!\n`"
-    "`My Guardian Angel 💝 묘이 미나 💝`")
+    "`My Guardian Angel 💝 미나 💝`")
 # =================================================================
 
 
@@ -72,6 +72,7 @@ async def permitpm(event):
                     await event.respond(
                         "`You were spamming my Mastor's PM, which I didn't like.`\n"
                         "`You have been BLOCKED and reported as SPAM, until further notice.`"
+                        "`My Guardian Angel 💝 미나 💝`"
                     )
 
                     try:
