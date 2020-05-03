@@ -157,6 +157,7 @@
     "ALIVE_NAME": {
       "description": "Name to show in .alive message",
       "required": false
+    },
     "G_DRIVE_DATA": {
       "description": "Your client_secret.json.",
       "required": false
