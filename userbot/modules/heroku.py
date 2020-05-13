@@ -167,7 +167,7 @@ async def dyno_usage(dyno):
             hours = math.floor(minutes_remaining / 60)
             minutes = math.floor(minutes_remaining % 60)
 
-    """ - User App Used Quota - """
+            """ - User App Used Quota - """
             Apps = result['apps']
             for apps in Apps:
                 if apps.get('app_uuid') == app.id:
@@ -182,7 +182,7 @@ async def dyno_usage(dyno):
             AppHours = math.floor(AppQuotaUsed / 60)
             AppMinutes = math.floor(AppQuotaUsed % 60)
 
-    await dyno.edit(
+            await dyno.edit(
                  "**Dyno Usage**:\n\n"
                  f" -> `Dyno usage for`  **{app.name}**:\n"
                  f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
