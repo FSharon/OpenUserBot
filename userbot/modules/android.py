@@ -10,41 +10,19 @@ import re
 import os
 import time
 import math
-import hashlib
 
-from selenium import webdriver
-from selenium.common import exceptions as Exceptions
-from selenium.webdriver.chrome.options import Options
 from requests import get
 from bs4 import BeautifulSoup
 
-from userbot import (
-    CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, GOOGLE_CHROME_BIN, CHROME_DRIVER
-)
+from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
-from userbot.modules.upload_download import humanbytes, time_formatter
+from userbot.utils import (
+    chrome, humanbytes, time_formatter, md5, human_to_bytes
+)
 
 GITHUB = 'https://github.com'
 DEVICES_DATA = ('https://raw.githubusercontent.com/androidtrackers/'
                 'certified-android-devices/master/by_device.json')
-
-
-async def md5(fname):
-    hash_md5 = hashlib.md5()
-    with open(fname, "rb") as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            hash_md5.update(chunk)
-    return hash_md5.hexdigest()
-
-
-def human_to_bytes(size):
-    units = {"MB": 2**20, "GB": 2**30, "TB": 2**40}
-    size = size.upper()
-    if not re.match(r' ', size):
-        size = re.sub(r'([KMGT]?B)', r' \1', size)
-    number, unit = [string.strip() for string in size.split()]
-    return int(float(number)*units[unit])
-
 
 
 @register(outgoing=True, pattern="^.magisk$")
@@ -129,8 +107,8 @@ async def codename_info(request):
     else:
         reply = f"`Couldn't find {device} codename!`\n"
     await request.edit(reply)
-    
-    
+
+
 @register(outgoing=True, pattern="^.pixeldl(?: |$)(.*)")
 async def download_api(dl):
     await dl.edit("`Collecting information...`")
@@ -326,7 +304,7 @@ CMD_HELP.update({
     "\nUsage: Get info about android device codename or model."
     "\n\n.codename <brand> <device>"
     "\nUsage: Search for android device codename."
-    "\n\n>.pixeldl **<download.pixelexperience.org>**"
+    "\n\n.pixeldl **<download.pixelexperience.org>**"
     "\nUsage: Download pixel experience ROM into your userbot server."
     "\n\n.specs <brand> <device>"
     "\nUsage: Get device specifications info."
