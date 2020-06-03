@@ -96,10 +96,10 @@ async def _(event):
 
 CMD_HELP.update({
     "getmusic":
-    "`.netease <Artist - Song Title>`"
+    ".netease <Artist - Song Title>"
     "\nUsage: Download music with @WooMaiBot"
-    "\n\n`.sdd <Spotify/Deezer Link>`"
+    "\n\n.sdd <Spotify/Deezer Link>"
     "\nUsage: Download music from Spotify or Deezer"
-    "\n\n`.smd <Artist - Song Title>`"
+    "\n\n.smd <Artist - Song Title>"
     "\nUsage: Download music from Spotify"
 }) 
