@@ -119,11 +119,6 @@
       "description": "When a new person joins, the old welcome message is deleted.",
       "value": "True"
     },
-    "TELEGRAPH_SHORT_NAME": {
-      "description": "For telegraph module",
-      "value": "",
-      "required": true
-    },
     "QUOTES_API_TOKEN": {
       "description": "Enhance ur text to sticker. Get your own API token from http://antiddos.systems.",
       "value": ""
