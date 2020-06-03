@@ -126,8 +126,7 @@
     },
     "QUOTES_API_TOKEN": {
       "description": "Enhance ur text to sticker. Get your own API token from http://antiddos.systems.",
-      "value": "",
-      "required": true
+      "value": ""
     },
     "LASTFM_API": {
       "description": "API Key for Last.FM module. [Get one from - https://www.last.fm/api/account/create]",
