@@ -26,8 +26,6 @@ async def _(event):
     async with bot.conversation(chat) as conv:
           try:
               msg_start = await conv.send_message("/start")
-              response = await conv.get_response()
-              r = await conv.get_response()
               msg = await conv.send_message(d_link)
               details = await conv.get_response()
               song = await conv.get_response()
