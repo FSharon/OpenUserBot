@@ -31,7 +31,7 @@ import logging
 import userbot.modules.sql_helper.google_drive_sql as helper
 
 from bs4 import BeautifulSoup
-from os.path import isfile, isdir, join
+from os.path import isfile, isdir, join, getctime
 from mimetypes import guess_type
 
 from telethon import events
@@ -216,6 +216,7 @@ async def get_mimeType(name):
 
 
 async def download(gdrive, service, uri=None):
+    global is_cancelled
     reply = ''
     """ - Download files to local then upload - """
     if not isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -249,14 +250,26 @@ async def download(gdrive, service, uri=None):
     else:
         try:
             current_time = time.time()
+            is_cancelled = False
             downloaded_file_name = await gdrive.client.download_media(
                 await gdrive.get_reply_message(),
                 TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop(
                 ).create_task(progress(d, t, gdrive, current_time,
-                                       "[FILE - DOWNLOAD]")))
-        except Exception as e:
-            await gdrive.edit(str(e))
+                                       "[FILE - DOWNLOAD]",
+                                       is_cancelled=is_cancelled)))
+        except CancelProcess:
+            names = []
+            for name in os.listdir(TEMP_DOWNLOAD_DIRECTORY):
+                names.append(join(TEMP_DOWNLOAD_DIRECTORY, name))
+            """ asumming newest files are the cancelled one """
+            newest = max(names, key=getctime)
+            os.remove(newest)
+            reply += (
+                "`[FILE - CANCELLED]`\n\n"
+                "`Status` : **OK** - received signal cancelled."
+            )
+            return reply
         else:
             required_file_name = downloaded_file_name
     try:
@@ -439,7 +452,7 @@ async def download_gdrive(gdrive, service, uri):
                         f"`ETA` -> {time_formatter(eta)}"
                     )
                     if round(
-                      diff % 10.00) == 0 and (display_message
+                      diff % 15.00) == 0 and (display_message
                                               != current_message) or (
                       downloaded == file_size):
                         await gdrive.edit(current_message)
@@ -484,7 +497,9 @@ async def download_gdrive(gdrive, service, uri):
                         f" @ {humanbytes(speed)}`\n"
                         f"`ETA` -> {time_formatter(eta)}"
                     )
-                    if display_message != current_message or (
+                    if round(
+                      diff % 15.00) == 0 and (display_message
+                                              != current_message) or (
                       downloaded == file_size):
                         await gdrive.edit(current_message)
                         display_message = current_message
@@ -642,7 +657,8 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                 f"@ {humanbytes(speed)}`\n"
                 f"`ETA` -> {time_formatter(eta)}"
             )
-            if display_message != current_message or (
+            if round(diff % 15.00) == 0 and (
+              display_message != current_message) or (
               uploaded == file_size):
                 await gdrive.edit(current_message)
                 display_message = current_message
@@ -1265,7 +1281,7 @@ async def check_progress_for_dl(gdrive, gid, previous):
                     msg = previous
             else:
                 await gdrive.edit(f"`{msg}`")
-            await asyncio.sleep(5)
+            await asyncio.sleep(15)
             await check_progress_for_dl(gdrive, gid, previous)
             file = aria2.get_download(gid)
             complete = file.is_complete
@@ -1296,6 +1312,8 @@ CMD_HELP.update({
     "\n\n.gd"
     "\nUsage: Upload file from local or uri/url/drivelink into google drive."
     "\nfor drivelink it's upload only if you want to."
+    "\n\n.gdabort"
+    "\nUsage: Abort process uploading or downloading."
     "\n\n.gdlist"
     "\nUsage: Get list of folders and files with default size 50."
     "\nUse flags `-l range[1-1000]` for limit output."
