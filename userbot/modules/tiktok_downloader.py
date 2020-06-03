@@ -1,12 +1,10 @@
-# Copyright (C) 2020 Frizzy.
-# All rights reserved.
+# Copyright (C) 2020 KeselekPermen69
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 #
 
 import datetime
-import asyncio
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.account import UpdateNotifySettingsRequest
@@ -17,30 +15,25 @@ from userbot.events import register
 async def _(event):
     if event.fwd_from:
         return
-    d_link = event.pattern_match.group(1)
-    if ".com" not in d_link:
-        await event.edit("` I need a link to download something pro.`**(._.)**")
-    else:
-        await event.edit("**Initiating Download!**")
-    chat = "@HK_tiktok_BOT"
+    link = event.pattern_match.group(1) 
+    chat = "@downloadtiktokvideofast_bot"
+    await event.edit("```Processing```")
     async with bot.conversation(chat) as conv:
-          try:
-              msg_start = await conv.send_message("/start")
-              msg = await conv.send_message(d_link)
-              details = await conv.get_response()
-              song = await conv.get_response()
-              """ - don't spam notif - """
-              await bot.send_read_acknowledge(conv.chat_id)
-          except YouBlockedUserError:
-              await event.edit("**Error:** `unblock` @HK_tiktok_BOT `and retry!`")
+          try:     
+              response = conv.wait_event(events.NewMessage(incoming=True,from_users=1070740810))
+              await bot.send_message(chat, link)
+              response = await response 
+          except YouBlockedUserError: 
+              await event.reply("```Please unblock @downloadtiktokvideofast_bot and try again```")
               return
-          await bot.send_file(event.chat_id, song, caption=details.text)
-          await event.client.delete_messages(conv.chat_id,
-                                             [msg_start.id, response.id, r.id, msg.id, details.id, song.id])
-          await event.delete()
+          if response.text.startswith("**Sorry I couldn't get TikTok video from**"):
+             await event.edit("```I think this is not the right link```")
+          else: 
+             await event.delete()   
+             await bot.send_file(event.chat_id, response.message)
 
 CMD_HELP.update({
     "tiktok":
     ".tiktok <Link>"
-    "\nUsage: Download TikTok video without watermark using @HK_tiktok_BOT"
+    "\nUsage: Download TikTok video without watermark using @downloadtiktokvideofast_bot"
 }) 
