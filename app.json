@@ -123,6 +123,11 @@
       "description": "Enhance ur text to sticker. Get your own API token from http://antiddos.systems.",
       "value": ""
     },
+    "DEEZER_ARL_TOKEN": {
+      "description": "Put your Deezer ARL token here.",
+      "required": false,
+      "value": ""
+    },
     "LASTFM_API": {
       "description": "API Key for Last.FM module. [Get one from - https://www.last.fm/api/account/create]",
       "required": false
