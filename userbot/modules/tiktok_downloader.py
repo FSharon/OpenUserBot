@@ -16,10 +16,11 @@ async def _(event):
     if event.fwd_from:
         return
     d_link = event.pattern_match.group(1)
+    value = 3
     if ".com" not in d_link:
-        await event.edit("` I need a link to download something pro.`**(._.)**")
+        await event.edit("`I need a link to download something pro.`**(._.)**")
     else:
-        await event.edit("**Initiating Download!**")
+        await event.edit("```Processing ...```")
     chat = "@HK_tiktok_BOT"
     async with bot.conversation(chat) as conv:
           try:
@@ -27,7 +28,7 @@ async def _(event):
               r = await conv.get_response()
               msg = await conv.send_message(d_link)
               details = await conv.get_response()
-              video = await conv.get_response()
+              video = await conv.get_response(value)
               """ - don't spam notif - """
               await bot.send_read_acknowledge(conv.chat_id)
           except YouBlockedUserError:
