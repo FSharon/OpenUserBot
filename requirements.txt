@@ -8,6 +8,7 @@ coffeehouse>=2.1.0
 covid
 cowpy
 cryptg
+deezloader
 dnspython
 emoji
 git+https://github.com/johnwmillr/LyricsGenius.git
