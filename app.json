@@ -124,7 +124,7 @@
       "value": ""
     },
     "DEEZER_ARL_TOKEN": {
-      "description": "Put your Deezer ARL token here.",
+      "description": "Put your Deezer ARL token here. How to get token - https://notabug.org/RemixDevs/DeezloaderRemix/wiki/Login+via+userToken",
       "required": false,
       "value": ""
     },
