@@ -1,20 +1,21 @@
 import asyncio
-import zipfile
-from pySmartDL import SmartDL
-from userbot.events import register
-from datetime import date
-import time
 import os
-from userbot import TEMP_DOWNLOAD_DIRECTORY, ZIP_DOWNLOAD_DIRECTORY, bot, CMD_HELP
-from userbot.utils import progress, humanbytes, time_formatter, human_to_bytes
+import time
+import zipfile
+from datetime import date
+
+from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, ZIP_DOWNLOAD_DIRECTORY, bot
+from userbot.events import register
+from userbot.utils import progress
 
 # ====================
 today = date.today()
 # ====================
 
+
 @register(outgoing=True, pattern=r"^\.compress(?: |$)(.*)")
 async def _(event):
-    #Prevent Channel Bug to use update
+    # Prevent Channel Bug to use update
     if event.is_channel and not event.is_group:
         await event.edit("`Compress Command isn't permitted on channels`")
         return
@@ -35,13 +36,15 @@ async def _(event):
                 TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
                     progress(d, t, mone, c_time, "`Trying to download`")
-                )
+                ),
             )
             directory_name = downloaded_file_name
             await event.edit(downloaded_file_name)
         except Exception as e:  # pylint:disable=C0103,W0703
             await mone.edit(str(e))
-    zipfile.ZipFile(directory_name + '.zip', 'w', zipfile.ZIP_DEFLATED).write(directory_name)
+    zipfile.ZipFile(directory_name + ".zip", "w", zipfile.ZIP_DEFLATED).write(
+        directory_name
+    )
     await bot.send_file(
         event.chat_id,
         directory_name + ".zip",
@@ -57,7 +60,7 @@ async def _(event):
 @register(outgoing=True, pattern=r"^\.addzip(?: |$)(.*)")
 async def addzip(add):
     """ Copyright (c) 2020 azrim @github"""
-    #Prevent Channel Bug to use update
+    # Prevent Channel Bug to use update
     if add.is_channel and not add.is_group:
         await add.edit("`Command isn't permitted on channels`")
         return
@@ -66,7 +69,6 @@ async def addzip(add):
     if not add.is_reply:
         await add.edit("`Reply to a file to compress it.`")
         return
-    directroy_zip = zip
     mone = await add.edit("`Processing ...`")
     if not os.path.isdir(ZIP_DOWNLOAD_DIRECTORY):
         os.makedirs(ZIP_DOWNLOAD_DIRECTORY)
@@ -79,9 +81,8 @@ async def addzip(add):
                 ZIP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
                     progress(d, t, mone, c_time, "`Trying to download`")
-                )
+                ),
             )
-            directory_name = downloaded_file_name
             success = str(downloaded_file_name).replace("./zips/", "")
             await add.edit(f"`{success} Successfully added to list`")
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -98,7 +99,7 @@ async def upload_zip(up):
     input_str = up.pattern_match.group(1)
     curdate = today.strftime("%m%d%y")
     title = str(input_str) if input_str else "zipfile" + f"{curdate}"
-    zipf = zipfile.ZipFile(title + '.zip', 'w', zipfile.ZIP_DEFLATED)
+    zipf = zipfile.ZipFile(title + ".zip", "w", zipfile.ZIP_DEFLATED)
     zipdir(ZIP_DOWNLOAD_DIRECTORY, zipf)
     zipf.close()
     await bot.send_file(
@@ -111,6 +112,7 @@ async def upload_zip(up):
     os.rmdir(ZIP_DOWNLOAD_DIRECTORY)
     await up.delete()
 
+
 @register(outgoing=True, pattern=r"^\.rmzip(?: |$)(.*)")
 async def remove_dir(rm):
     if not os.path.isdir(ZIP_DOWNLOAD_DIRECTORY):
@@ -122,15 +124,15 @@ async def remove_dir(rm):
 
 def zipdir(path, ziph):
     # ziph is zipfile handle
-    for root, dirs, files in os.walk(path):
+    for root, _, files in os.walk(path):
         for file in files:
             ziph.write(os.path.join(root, file))
             os.remove(os.path.join(root, file))
 
 
-CMD_HELP.update({
-        "zipfile":
-        ".compress [optional: <reply to file >]\
+CMD_HELP.update(
+    {
+        "zipfile": ".compress [optional: <reply to file >]\
             \nUsage: make files to zip."
         "\n.addzip <reply to file >\
             \nUsage: add files to zip list."
@@ -138,4 +140,5 @@ CMD_HELP.update({
             \nUsage: upload zip list."
         "\n.rmzip [optional: <zip title>]\
             \nUsage: clear zip list."
-})
+    }
+)
