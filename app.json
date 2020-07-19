@@ -80,7 +80,7 @@
       "value": "False"
     },
     "BOTLOG_CHATID": {
-      "description": "ChatID of the Log group. Set it to '0' if BOTLOG = False and/or if LOGSPAMMER = False.",
+      "description": "ChatID of the Log group. Create a Group > add a bot e.g. @MissRose_bot > Promote bot > type /id.",
       "value": "0"
     },
     "CONSOLE_LOGGER_VERBOSE": {
@@ -179,7 +179,7 @@
     },
     "LOGSPAMMER": {
       "description": "Set this to True in case you want the error logs to be stored in the userbot log group, instead of spitting out the file in the current chat, requires a valid BOTLOG_CHATID to be set.",
-      "value": "True"
+      "value": "False"
     }
   },
   "addons": [
