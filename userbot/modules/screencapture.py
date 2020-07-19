@@ -8,7 +8,6 @@
 
 import io
 
-import traceback
 from re import match
 from asyncio import sleep
 from userbot.events import register

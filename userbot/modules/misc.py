@@ -10,9 +10,7 @@ from random import randint
 from time import sleep
 from os import execl
 import sys
-import os
 import io
-import json
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from userbot.utils import time_formatter
@@ -35,7 +33,7 @@ async def randomise(items):
 @register(outgoing=True, pattern="^.sleep ([0-9]+)$")
 async def sleepybot(time):
     """ For .sleep command, let the userbot snooze for a few second. """
-    message = time.text
+    time.text
     counter = int(time.pattern_match.group(1))
     await time.edit("`I am sulking and snoozing...`")
     if BOTLOG:
@@ -106,7 +104,7 @@ async def reedme(e):
         "\n[Video Tutorial - 576p](https://mega.nz/#!ErwCESbJ!1ZvYAKdTEfb6y1FnqqiLhHH9vZg4UB2QZNYL9fbQ9vs)"
         "\n[Video Tutorial - 1080p](https://mega.nz/#!x3JVhYwR!u7Uj0nvD8_CyyARrdKrFqlZEBFTnSVEiqts36HBMr-o)"
         "\n[Special - Note](https://telegra.ph/Special-Note-11-02)")
-    
+
 
 # Copyright (c) Gegham Zakaryan | 2019
 @register(outgoing=True, pattern="^.repeat (.*)")

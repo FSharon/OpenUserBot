@@ -40,6 +40,8 @@ async def filter_incoming_handler(handler):
 
 
 register(outgoing=True, pattern=r"^.filter (.*)")
+
+
 async def add_new_filter(new_handler):
     """ For .filter command, allows adding new filters in a chat """
     try:
@@ -105,7 +107,7 @@ async def remove_a_filter(r_handler):
 async def kick_marie_filter(event):
     """ For .rmfilters command, allows you to kick all \
         Marie(or her clones) filters from a chat. """
-    cmd = event.text[0]
+    event.text[0]
     bot_type = event.pattern_match.group(1).lower()
     if bot_type not in ["marie", "rose"]:
         await event.edit("`That bot is not yet supported!`")

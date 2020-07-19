@@ -1,14 +1,12 @@
-#port to OUB by fr7zzy
+# port to OUB by fr7zzy
 
 import asyncio
 
-from telethon import events
 from userbot.events import register
 from userbot import CMD_HELP
 
 
 @register(outgoing=True, pattern="^.muth(?: |$)(.*)")
-
 async def _(event):
 
     if event.fwd_from:
@@ -50,13 +48,12 @@ async def _(event):
         ]
 
         for i in animation_ttl:
-        
+
             await asyncio.sleep(animation_interval)
-        
+
             await event.edit(animation_chars[i % 8])
-            
+
 
 CMD_HELP.update({
     "muth": ".muth\nUsage : Just try by urself xD"
 })
-

@@ -24,7 +24,7 @@ SESSION_ID = {}
 if LYDIA_API_KEY:
     lydiaAI = LydiaAI(API(LYDIA_API_KEY))
 
-    
+
 @register(outgoing=True, pattern="^.repcf$")
 async def repcf(event):
     if event.fwd_from:
@@ -39,7 +39,7 @@ async def repcf(event):
     except Exception as e:
         await event.edit(str(e))
 
-        
+
 @register(outgoing=True, pattern="^.addcf$")
 async def addcf(event):
     if event.fwd_from:
@@ -50,12 +50,13 @@ async def addcf(event):
     reply_msg = await event.get_reply_message()
     if reply_msg:
         session = lydiaAI.create_session()
-        ACC_LYDIA.update({str(event.chat_id) + " " + str(reply_msg.from_id): session})
+        ACC_LYDIA.update({str(event.chat_id) + " " +
+                          str(reply_msg.from_id): session})
         await event.edit("Lydia successfully enabled for user: {} in chat: {}".format(str(reply_msg.from_id), str(event.chat_id)))
     else:
         await event.edit("Reply to a user to activate Lydia AI on them")
 
-        
+
 @register(outgoing=True, pattern="^.remcf$")
 async def remcf(event):
     if event.fwd_from:
@@ -70,7 +71,7 @@ async def remcf(event):
     except KeyError:
         await event.edit("This person does not have Lydia activated on him/her.")
 
-        
+
 @register(incoming=True, disable_edited=True)
 async def user(event):
     try:
@@ -86,7 +87,7 @@ async def user(event):
     except KeyError:
         return
 
-    
+
 CMD_HELP.update({
     "lydia":
     ".addcf <username/reply>\

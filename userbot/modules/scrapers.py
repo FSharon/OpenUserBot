@@ -16,9 +16,6 @@ from html import unescape
 from re import findall
 from urllib.parse import quote_plus
 from urllib.error import HTTPError
-from selenium.webdriver.support.ui import Select
-from selenium import webdriver
-from telethon import events
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define
@@ -318,7 +315,7 @@ async def imdb(e):
         final_name = '+'.join(remove_space)
         page = get("https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name +
                    "&s=all")
-        lnk = str(page.status_code)
+        str(page.status_code)
         soup = BeautifulSoup(page.content, 'lxml')
         odds = soup.findAll("tr", "odd")
         mov_title = odds[0].findNext('td').findNext('td').text

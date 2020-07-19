@@ -3,7 +3,8 @@ from requests import get
 from userbot import CMD_HELP
 from userbot.events import register
 
-@register(pattern="^\.tw ?(.*)", outgoing=True)
+
+@register(pattern=r"^\.tw ?(.*)", outgoing=True)
 async def twit(event):
     q = event.pattern_match.group(1)
     if len(q) < 1:
