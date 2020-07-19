@@ -1,6 +1,6 @@
 # OUB - Telegram UserBot
 
-<img src="https://pbs.twimg.com/media/ET2P8BfVAAAtKcn?format=jpg&name=large"/>
+<img src="https://pbs.twimg.com/media/EbcutlAUMAAOZKl?format=jpg&name=4096x4096"/>
 
 ```
 #include <std/disclaimer.h>
@@ -34,4 +34,4 @@ First of all you should know this bot is a major work in progress. It is a fork 
 * [MoveAngel](https://github.com/MoveAngel/One4uBot) One4uBot
 * [KeselekPermen69](https://github.com/keselekpermen69) UserButt
 
-You can also find credits in certain files if you miss any credit contact me pm.
+You can also find credits in certain files if you miss any credit contact me in pm.
