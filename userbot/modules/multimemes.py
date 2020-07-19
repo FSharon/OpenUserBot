@@ -16,49 +16,39 @@ from logging import Logger as logger
 from telethon import events
 import os
 import requests
-import requests
 import base64
 import json
 import telethon
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.types import (
-    DocumentAttributeFilename,
-    DocumentAttributeSticker,
-    InputMediaUploadedDocument,
-    InputPeerNotifySettings,
-    InputStickerSetID,
-    InputStickerSetShortName,
-    MessageMediaPhoto)
+from telethon.tl.types import (MessageMediaPhoto)
 from userbot import bot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, QUOTES_API_TOKEN
 from userbot.events import register
 
 
-if 1 == 1:
-    strings = {
-        "name": "Quotes",
-        "api_token_cfg_doc": "API Key/Token for Quotes.",
-        "api_url_cfg_doc": "API URL for Quotes.",
-        "colors_cfg_doc": "Username colors",
-        "default_username_color_cfg_doc": "Default color for the username.",
-        "no_reply": "You didn't reply to a message.",
-        "no_template": "You didn't specify the template.",
-        "delimiter": "</code>, <code>",
-        "server_error": "Server error. Please report to developer.",
-        "invalid_token": "You've set an invalid token, get it from `http://antiddos.systems`.",
-        "unauthorized": "You're unauthorized to do this.",
-        "not_enough_permissions": "Wrong template. You can use only the default one.",
-        "templates": "Available Templates: <code>{}</code>",
-        "cannot_send_stickers": "You cannot send stickers in this chat.",
-        "admin": "admin",
-        "creator": "creator",
-        "hidden": "hidden",
-        "channel": "Channel"}
+strings = {
+    "name": "Quotes",
+    "api_token_cfg_doc": "API Key/Token for Quotes.",
+    "api_url_cfg_doc": "API URL for Quotes.",
+    "colors_cfg_doc": "Username colors",
+    "default_username_color_cfg_doc": "Default color for the username.",
+    "no_reply": "You didn't reply to a message.",
+    "no_template": "You didn't specify the template.",
+    "delimiter": "</code>, <code>",
+    "server_error": "Server error. Please report to developer.",
+    "invalid_token": "You've set an invalid token, get it from `http://antiddos.systems`.",
+    "unauthorized": "You're unauthorized to do this.",
+    "not_enough_permissions": "Wrong template. You can use only the default one.",
+    "templates": "Available Templates: <code>{}</code>",
+    "cannot_send_stickers": "You cannot send stickers in this chat.",
+    "admin": "admin",
+    "creator": "creator",
+    "hidden": "hidden",
+    "channel": "Channel"}
 
-    config = dict({"api_url": "http://api.antiddos.systems",
-                   "username_colors": ["#fb6169", "#faa357", "#b48bf2", "#85de85",
-                                       "#62d4e3", "#65bdf3", "#ff5694"],
-                   "default_username_color": "#b48bf2"})
-
+config = {"api_url": "http://api.antiddos.systems",
+          "username_colors": ["#fb6169", "#faa357", "#b48bf2", "#85de85",
+                              "#62d4e3", "#65bdf3", "#ff5694"],
+          "default_username_color": "#b48bf2"}
 
 THUMB_IMAGE_PATH = "./thumb_image.jpg"
 
@@ -266,9 +256,6 @@ async def mim(event):
     if not reply_message.media:
         await event.edit("```reply to a image/sticker/gif```")
         return
-    chat = "@MemeAutobot"
-    reply_message.sender
-    await bot.download_file(reply_message.media)
     if reply_message.sender.bot:
         await event.edit("```Reply to actual users message.```")
         return
@@ -277,6 +264,7 @@ async def mim(event):
         await asyncio.sleep(5)
 
     async with bot.conversation("@MemeAutobot") as bot_conv:
+        chat = "@MemeAutobot"
         try:
             memeVar = event.pattern_match.group(1)
             await silently_send_message(bot_conv, "/start")
@@ -349,10 +337,11 @@ def is_message_image(message):
     if message.media:
         if isinstance(message.media, MessageMediaPhoto):
             return True
-        if message.media.document:
-            if message.media.document.mime_type.split("/")[0] == "image":
-                return True
-        return False
+        return bool(
+            message.media.document
+            and message.media.document.mime_type.split("/")[0] == "image"
+        )
+
     return False
 
 
@@ -375,7 +364,6 @@ async def quotess(qotli):
         await qotli.edit("```Reply to text message```")
         return
     chat = "@QuotLyBot"
-    reply_message.sender
     if reply_message.sender.bot:
         await qotli.edit("```Reply to actual users message.```")
         return
@@ -433,16 +421,13 @@ async def hazz(hazmat):
                     m,
                     reply_to=msg.id)
                 r = await conv.get_response()
-                response = await conv.get_response()
             elif reply_message.gif:
-                m = f"/hazmat"
+                m = "/hazmat"
                 msg_reply = await conv.send_message(
                     m,
                     reply_to=msg.id)
                 r = await conv.get_response()
-                response = await conv.get_response()
-            else:
-                response = await conv.get_response()
+            response = await conv.get_response()
             """ - don't spam notif - """
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
@@ -504,9 +489,7 @@ async def fryerrr(fry):
                     m,
                     reply_to=msg.id)
                 r = await conv.get_response()
-                response = await conv.get_response()
-            else:
-                response = await conv.get_response()
+            response = await conv.get_response()
             """ - don't spam notif - """
             await bot.send_read_acknowledge(conv.chat_id)
         except YouBlockedUserError:
@@ -539,6 +522,39 @@ async def fryerrr(fry):
     return os.remove(downloaded_file_name)
 
 
+@register(outgoing=True, pattern="^.sg(?: |$)(.*)")
+async def lastname(steal):
+    if steal.fwd_from:
+        return
+    if not steal.reply_to_msg_id:
+        await steal.edit("`Reply to any user message.`")
+        return
+    reply_message = await steal.get_reply_message()
+    if not reply_message.text:
+        await steal.edit("`reply to text message`")
+        return
+    chat = "@SangMataInfo_bot"
+    if reply_message.sender.bot:
+        await steal.edit("`Reply to actual users message.`")
+        return
+    await steal.edit("`Sit tight while I steal some data`")
+    async with bot.conversation(chat) as conv:
+        try:
+            response = conv.wait_event(
+                events.NewMessage(
+                    incoming=True,
+                    from_users=461843263))
+            await bot.forward_messages(chat, reply_message)
+            response = await response
+        except YouBlockedUserError:
+            await steal.reply("`Please unblock @sangmatainfo_bot and try again`")
+            return
+        if response.text.startswith("Forward"):
+            await steal.edit("`can you kindly disable your forward privacy settings for good?`")
+        else:
+            await steal.edit(f"{response.message.message}")
+
+
 @register(outgoing=True, pattern="^.waifu(?: |$)(.*)")
 async def waifu(animu):
     text = animu.pattern_match.group(1)
@@ -564,39 +580,47 @@ def deEmojify(inputString: str) -> str:
 
 CMD_HELP.update({
     "memify":
-        ".mmf texttop ; textbottom\
-            \nUsage: Reply a sticker/image/gif and send with cmd."
+    ".mmf <text_top> ; <textbottom>"
+    "\nUsage: Reply a sticker/image/gif and send with cmd."
 })
 
 CMD_HELP.update({
     "quotly":
-        ".q \
-          \nUsage: Enhance ur text to sticker."
+    ".q"
+    "\nUsage: Enhance ur text to sticker."
 })
 
 CMD_HELP.update({
     "hazmat":
-        ".hz or .hz [flip, x2, rotate (degree), background (number), black]"
+    ".hz or .hz [flip, x2, rotate (degree), background (number), black]"
     "\nUsage: Reply to a image / sticker to suit up!"
     "\n@hazmat_suit_bot"
 })
 
 CMD_HELP.update({
     "quote":
-        ".pch \
-          \nUsage: Same as quotly, enhance ur text to sticker."
+    ".pch"
+    "\nUsage: Same as quotly, enhance ur text to sticker."
 })
 
 CMD_HELP.update({
     "deepfry":
-        ".df or .df [level(1-8)]"
+    ".df or .df [level(1-8)]"
     "\nUsage: deepfry image/sticker from the reply."
     "\n@image_deepfrybot"
 })
 
+
+CMD_HELP.update({
+    "sangmata":
+    ".sg"
+    "\nUsage: Steal ur or friend name."
+})
+
+
 CMD_HELP.update({
     "waifu":
-        ".waifu \
-          \nUsage: Enchance your text with beautiful anime girl templates. \
-          \n@StickerizerBot"
+    ".waifu"
+    "\nUsage: Enchance your text with beautiful anime girl templates."
+    "\n@StickerizerBot"
 })
