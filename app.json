@@ -128,6 +128,10 @@
       "required": false,
       "value": ""
     },
+    "ALIVE_LOGO": {
+      "description": "Show Image/Logo in .alive message",
+      "required": false
+    },
     "LASTFM_API": {
       "description": "API Key for Last.FM module. [Get one from - https://www.last.fm/api/account/create]",
       "required": false
