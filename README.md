@@ -24,7 +24,7 @@ First of all you should know this bot is a major work in progress. It is a fork 
 
 ## Heroku Deploy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/fr7zzy/OpenUserBot/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/FSharon/OpenUserBot/tree/master)
 
 ## Credits
 
@@ -34,4 +34,4 @@ First of all you should know this bot is a major work in progress. It is a fork 
 * [MoveAngel](https://github.com/MoveAngel/One4uBot) One4uBot
 * [KeselekPermen69](https://github.com/keselekpermen69) UserButt
 
-You can also find credits in certain files if you miss any credit contact me in pm.
+You can also find credits in certain files if you miss any credit contact me in [Telegram](https://t.me/frizx)
