@@ -73,17 +73,15 @@ async def killdabot(event):
 async def bot_community(community):
     """ For .community command, just returns OG Paperplane's group link. """
     await community.edit(
-        "Join RaphielGang's awesome userbot community: @userbot_support"
-        "\nDo note that Paperplane Extended is an unoficial fork of their "
-        "Paperplane project and it may get limited or no support for bugs.")
+        "Join Userbot Indonesia: @userbotindo")
 
 
 @register(outgoing=True, pattern="^.support$")
 async def bot_support(wannahelp):
     """ For .support command, just returns the group link. """
     await wannahelp.edit(
-        "Join the OpenUserBot Channel: @PaperPlaneExtended_news \
-        \nJoin the OpenUserBot Chat: @PPE_Support")
+        "Join Userbot Indonesia Channel: @userbotindocloud \
+        \nJoin Userbot Indonesia: @userbotindo")
 
 
 @register(outgoing=True, pattern="^.creator$")
@@ -97,7 +95,7 @@ async def creator(e):
 async def reedme(e):
     await e.edit(
         "Here's something for you to read:\n"
-        "\n[OpenUserBot's README.md file](https://github.com/fr7zzy/OpenUserBot/blob/master/README.md)"
+        "\n[OpenUserBot's README.md file](https://github.com/FSharon/OpenUserBot/blob/master/README.md)"
         "\n[Setup Guide - Basic](https://telegra.ph/How-to-host-a-Telegram-Userbot-11-02)"
         "\n[Setup Guide - Google Drive](https://telegra.ph/How-To-Setup-Google-Drive-04-03)"
         "\n[Setup Guide - LastFM Module](https://telegra.ph/How-to-set-up-LastFM-module-for-Paperplane-userbot-11-02)"
@@ -125,7 +123,7 @@ async def repeat(rep):
 async def repo_is_here(wannasee):
     """ For .repo command, just returns the repo URL. """
     await wannasee.edit(
-        "[Repo](https://github.com/fr7zzy/OpenUserBot) to open GitHub's page."
+        "[Repo](https://github.com/FSharon/OpenUserBot) to open GitHub's page."
     )
 
 
